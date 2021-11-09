@@ -33,11 +33,11 @@ def signup(user: UserRegister = Body(...)):
             - user: UserRegister
     
     Returns a json object with the basic user information:
-        - user_id: UUID
-        - email: EmailStr
-        - first_name: str
-        - last_name: str
-        - birth_date: date
+    * user_id: UUID
+    * email: EmailStr
+    * first_name: str
+    * last_name: str
+    * birth_date: date
     """
     with open("users.json", "r+", encoding="utf-8") as f:
         results = json.loads(f.read())
@@ -71,10 +71,21 @@ def login():
     tags=["Users"]
 )
 def show_all_users():
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Method not implemented"
-    )
+    """This path operation shows all users in the app.
+
+    Parameters:
+        -
+
+    Returns a JSON list with all the users in the app, with the following keys:
+    * user_id: UUID
+    * email: EmailStr
+    * first_name: str
+    * last_name: str
+    * birth_date: date
+    """
+    with open("users.json", "r", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        return results
 
 @app.delete(
     path="/users/{user_id}",
