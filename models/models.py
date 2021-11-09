@@ -31,7 +31,7 @@ class User(UserBase):
         min_length=1,
         max_length=50
     )
-    birdh_date: Optional[date] = Field(...)
+    birth_date: Optional[date] = Field(...)
 
 class Tweet(BaseModel):
     tweet_id: UUID = Field(...)
