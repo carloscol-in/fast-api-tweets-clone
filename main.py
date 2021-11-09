@@ -11,8 +11,12 @@ from models import User, Tweet, UserRegister
 app = FastAPI()
 
 
+##
 # Path operations
+##
 
+
+##
 ## Users
 
 @app.post(
@@ -113,6 +117,8 @@ def update_user():
         detail="Method not implemented"
     )
 
+
+##
 ## Tweets
 
 @app.get(
@@ -145,11 +151,37 @@ def show_tweet():
     summary="Post a tweet",
     tags=["Tweets"]
 )
-def post_tweet():
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Method not implemented"
-    )
+def post_tweet(tweet: Tweet = Body(...)):
+    """
+    # Post a tweet
+
+    This path operation is used to post a tweet in the app.
+
+    Parameters:
+    * Request Body parameter
+        * tweet: Tweet
+    
+    Returns a json object with the basic tweet information:
+    * tweet_id
+    * content: str
+    * created_at: datetime
+    * updated_at: Optional[datetime]
+    * by: User
+    """
+    with open("tweets.json", "r+", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        
+        tweet_dict = tweet.dict()
+        tweet_dict["tweet_id"] = str(tweet_dict["tweet_id"])
+        tweet_dict["created_at"] = str(tweet_dict["created_at"])
+        tweet_dict["updated_at"] = str(tweet_dict["updated_at"])
+        tweet_dict["by"]["user_id"] = str(tweet_dict["by"]["user_id"])
+        tweet_dict["by"]["birth_date"] = str(tweet_dict["by"]["birth_date"])
+
+        results.append(tweet_dict)
+        f.seek(0)
+        f.write(json.dumps(results))
+        return tweet
 
 @app.delete(
     path="/tweet/{tweet_id}",
@@ -158,7 +190,7 @@ def post_tweet():
     summary="Delete a tweet",
     tags=["Tweets"]
 )
-def post_tweet():
+def delete_tweet():
     raise HTTPException(
         status_code=status.HTTP_501_NOT_IMPLEMENTED,
         detail="Method not implemented"
@@ -171,7 +203,7 @@ def post_tweet():
     summary="Update a tweet",
     tags=["Tweets"]
 )
-def post_tweet():
+def update_tweet():
     raise HTTPException(
         status_code=status.HTTP_501_NOT_IMPLEMENTED,
         detail="Method not implemented"
