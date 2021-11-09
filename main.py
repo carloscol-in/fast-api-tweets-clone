@@ -1,10 +1,12 @@
+import json
 from typing import List
 
 from fastapi import FastAPI
 from fastapi import status
+from fastapi import Body
 from fastapi import HTTPException
 
-from models import User, Tweet
+from models import User, Tweet, UserRegister
 
 app = FastAPI()
 
@@ -20,7 +22,7 @@ app = FastAPI()
     summary="Register a User",
     tags=["Users"]
 )
-def signup():
+def signup(user: UserRegister = Body(...)):
     """
     # Create a user
 
@@ -35,12 +37,18 @@ def signup():
         - email: EmailStr
         - first_name: str
         - last_name: str
-        - birth_date: str
+        - birth_date: date
     """
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Method not implemented"
-    )
+    with open("users.json", "r+", encoding="utf-8") as f:
+        results = json.loads(f.read())
+        user_dict = user.dict()
+        user_dict["user_id"] = str(user_dict["user_id"])
+        user_dict["birth_date"] = str(user_dict["birth_date"])
+        results.append(user_dict)
+        f.seek(0)
+        f.write(json.dumps(results))
+        return user
+
 
 @app.post(
     path="/login",
