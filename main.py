@@ -128,7 +128,7 @@ def update_user():
     summary="Show all tweets",
     tags=["Tweets"]
 )
-def home():
+async def home():
     """This path operation shows all tweets in the app.
 
     Parameters:
@@ -138,7 +138,7 @@ def home():
     * content: str
     * created_at: datetime
     * updated_at: Optional[datetime]
-    * by: User
+    * by: UUID
     """
     with open("tweets.json", "r", encoding="utf-8") as f:
         results = json.loads(f.read())
