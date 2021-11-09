@@ -5,7 +5,7 @@ from typing import Optional
 
 from pydantic import (
     BaseModel,
-    Field
+    Field,
 )
 
 from .users import User
