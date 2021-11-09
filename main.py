@@ -11,10 +11,6 @@ app = FastAPI()
 
 # Path operations
 
-@app.get(path="/")
-def home():
-    return {"Twitter API": "Working"}
-
 ## Users
 
 @app.post(
@@ -83,3 +79,65 @@ def update_user():
     )
 
 ## Tweets
+
+@app.get(
+    path="/",
+    response_model=List[Tweet],
+    status_code=status.HTTP_200_OK,
+    summary="Show all tweets",
+    tags=["Tweets"]
+)
+def home():
+    return {"Twitter API": "Working"}
+
+@app.get(
+    path="/tweet/{tweet_id}",
+    response_model=Tweet,
+    status_code=status.HTTP_200_OK,
+    summary="Show a tweet",
+    tags=["Tweets"]
+)
+def show_tweet():
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Method not implemented"
+    )
+
+@app.post(
+    path="/tweet",
+    response_model=Tweet,
+    status_code=status.HTTP_201_CREATED,
+    summary="Post a tweet",
+    tags=["Tweets"]
+)
+def post_tweet():
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Method not implemented"
+    )
+
+@app.delete(
+    path="/tweet/{tweet_id}",
+    response_model=Tweet,
+    status_code=status.HTTP_200_OK,
+    summary="Delete a tweet",
+    tags=["Tweets"]
+)
+def post_tweet():
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Method not implemented"
+    )
+
+@app.put(
+    path="/tweet/{tweet_id}",
+    response_model=Tweet,
+    status_code=status.HTTP_200_OK,
+    summary="Update a tweet",
+    tags=["Tweets"]
+)
+def post_tweet():
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Method not implemented"
+    )
