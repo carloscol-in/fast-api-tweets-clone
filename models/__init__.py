@@ -1,1 +1,1 @@
-from .models import User, Tweet
+from .models import User, Tweet, UserRegister, UserLogin

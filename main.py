@@ -21,6 +21,22 @@ app = FastAPI()
     tags=["Users"]
 )
 def signup():
+    """
+    # Create a user
+
+    This path operation is used to create a user in the app.
+
+    Parameters:
+        - Request Body parameter
+            - user: UserRegister
+    
+    Returns a json object with the basic user information:
+        - user_id: UUID
+        - email: EmailStr
+        - first_name: str
+        - last_name: str
+        - birth_date: str
+    """
     raise HTTPException(
         status_code=status.HTTP_501_NOT_IMPLEMENTED,
         detail="Method not implemented"

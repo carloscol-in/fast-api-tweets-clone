@@ -9,16 +9,22 @@ from pydantic import (
     Field
 )
 
-class UserBase(BaseModel):
-    user_id: UUID = Field(...)
-    email: EmailStr = Field(...)
-
-class UserLogin(UserBase):
+class PasswordMixin(BaseModel):
     password: str = Field(
         ...,
         min_length=1,
         max_length=64
     )
+
+class UserBase(BaseModel):
+    user_id: UUID = Field(...)
+    email: EmailStr = Field(...)
+
+class UserLogin(PasswordMixin, UserBase):
+    pass
+
+class UserRegister(PasswordMixin, User):
+    pass
 
 class User(UserBase):
     first_name: str = Field(
